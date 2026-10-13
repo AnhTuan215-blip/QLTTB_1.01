@@ -1,0 +1,35 @@
+{
+  "name": "cloudflare-tbyt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "wrangler dev --local --port 8787",
+    "start": "wrangler dev --local --port 8787",
+    "check": "tsc --noEmit",
+    "build": "npm run check && wrangler deploy --env production --dry-run --outdir dist",
+    "deploy": "wrangler deploy --env production",
+    "db:check:remote": "wrangler d1 execute DB --env production --remote --file scripts/check-d1.sql",
+    "db:setup:remote": "node scripts/setup-d1.cjs --remote --apply",
+    "test:cloudflare": "node --test tests/cloudflare-config.cjs",
+    "test:requests": "node tests/request-sheets.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "hono": "^4.12.14"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260420.1",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.83.0"
+  }
+}
