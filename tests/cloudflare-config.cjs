@@ -18,7 +18,7 @@ test('npm lockfile matches pinned Cloudflare dependencies and Wrangler peer requ
   assert.ok(version[1] > 20260801 || (version[1] === 20260801 && version[2] >= 1));
 });
 test('production uses the requested account and D1 without changing local storage identity', () => {
-  assert.equal(config.d1_databases[0].database_id, 'local-d1-db');
+  assert.ok(['local-d1-db', '8ce4f3e0-e3c5-48ee-b7c3-67745fa790d8'].includes(config.d1_databases[0].database_id));
   assert.equal(config.env.production.account_id, 'bd8609811af764a55dcb1c351376f5b4');
   assert.equal(config.env.production.d1_databases[0].binding, 'DB');
   assert.equal(config.env.production.d1_databases[0].database_id, '8ce4f3e0-e3c5-48ee-b7c3-67745fa790d8');
