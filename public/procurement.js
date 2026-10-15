@@ -36,11 +36,69 @@ function requestStatusSelect(kind, id, currentStatus, isSheet = false) {
     ORDER_STATUS_LIST.map(st => `<option value="${escHtml(st)}" ${st === currentStatus ? 'selected' : ''}>${escHtml(st)}</option>`).join('')+
     `</select>`;
 }
+function applyRequestDatePreset(kind, preset) {
+  const fromEl = document.getElementById(kind+'-date-from');
+  const toEl = document.getElementById(kind+'-date-to');
+  if (!fromEl || !toEl) return;
+  if (!preset) {
+    fromEl.value = '';
+    toEl.value = '';
+    return;
+  }
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+
+  if (preset === 'today') {
+    const today = fmt(now);
+    fromEl.value = today;
+    toEl.value = today;
+  } else if (preset === 'this_week') {
+    const day = now.getDay() || 7;
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - day + 1);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    fromEl.value = fmt(monday);
+    toEl.value = fmt(sunday);
+  } else if (preset === 'this_month') {
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    fromEl.value = fmt(firstDay);
+    toEl.value = fmt(lastDay);
+  } else if (preset === 'last_month') {
+    const firstDay = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const lastDay = new Date(now.getFullYear(), now.getMonth(), 0);
+    fromEl.value = fmt(firstDay);
+    toEl.value = fmt(lastDay);
+  } else if (preset === 'this_year') {
+    fromEl.value = `${now.getFullYear()}-01-01`;
+    toEl.value = `${now.getFullYear()}-12-31`;
+  }
+}
 function initRequestPage(kind) {
   const ui = requestUi[kind];
   if (!ui.bound) {
     document.getElementById(kind+'-query').addEventListener('input', debounce(() => { ui.page=1; renderRequestList(kind); }, 160));
-    ['department','filter'].forEach(field => document.getElementById(kind+'-'+field).addEventListener('change', () => { ui.page=1; renderRequestList(kind); }));
+    ['department','filter','date-from','date-to'].forEach(field => {
+      const el = document.getElementById(kind+'-'+field);
+      if (el) el.addEventListener('change', () => {
+        if (field.startsWith('date-')) {
+          const presetEl = document.getElementById(kind+'-date-preset');
+          if (presetEl) presetEl.value = '';
+        }
+        ui.page=1;
+        renderRequestList(kind);
+      });
+    });
+    const presetEl = document.getElementById(kind+'-date-preset');
+    if (presetEl) {
+      presetEl.addEventListener('change', () => {
+        applyRequestDatePreset(kind, presetEl.value);
+        ui.page=1;
+        renderRequestList(kind);
+      });
+    }
     const list = document.getElementById(kind+'-list');
     list.addEventListener('click', event => {
       const button = event.target.closest('[data-sheet-id]');
@@ -61,10 +119,28 @@ function filteredRequestSheets(kind) {
   const query = document.getElementById(kind+'-query').value.trim().toLocaleLowerCase('vi');
   const department = document.getElementById(kind+'-department').value;
   const filter = document.getElementById(kind+'-filter').value;
+  const dateFrom = document.getElementById(kind+'-date-from')?.value || '';
+  const dateTo = document.getElementById(kind+'-date-to')?.value || '';
   return state.request_sheets.filter(sheet => {
     if (sheet.kind!==kind || (department && sheet.department!==department)) return false;
     const items=requestItems(sheet);
     if (filter && !(kind==='order' ? items.some(i=>i.status===filter) : items.some(i=>i.priority===filter))) return false;
+
+    if (dateFrom || dateTo) {
+      const sDate = (sheet.request_date || '').slice(0, 10);
+      if (sDate) {
+        if (dateFrom && sDate < dateFrom) return false;
+        if (dateTo && sDate > dateTo) return false;
+      } else {
+        const cDate = (sheet.created_at || '').slice(0, 10);
+        const itemDates = items.map(i => (i.request_date || i.approval_date || i.handover_date || '').slice(0, 10)).filter(Boolean);
+        const allDates = [cDate, ...itemDates].filter(Boolean);
+        if (!allDates.length) return false;
+        const matches = allDates.some(d => (!dateFrom || d >= dateFrom) && (!dateTo || d <= dateTo));
+        if (!matches) return false;
+      }
+    }
+
     return !query || [sheet.department,sheetCode(sheet),...items.map(i=>i.order_name||i.device_name)].join(' ').toLocaleLowerCase('vi').includes(query);
   });
 }
@@ -91,7 +167,7 @@ function renderRequestList(kind) {
   document.getElementById(kind+'-pagination').innerHTML=`<span>Hiển thị ${start}–${Math.min(ui.page*12,filtered.length)} / ${filtered.length} phiếu</span><div><button class="btn sm" ${ui.page===1?'disabled':''} onclick="changeRequestPage('${kind}',-1)" aria-label="Trang trước">‹</button><span>${ui.page} / ${totalPages}</span><button class="btn sm" ${ui.page===totalPages?'disabled':''} onclick="changeRequestPage('${kind}',1)" aria-label="Trang sau">›</button></div>`;
 }
 function changeRequestPage(kind,delta){requestUi[kind].page+=delta;renderRequestList(kind);}
-function resetRequestFilters(kind){['query','department','filter'].forEach(f=>document.getElementById(kind+'-'+f).value='');requestUi[kind].page=1;renderRequestList(kind);}
+function resetRequestFilters(kind){['query','department','filter','date-from','date-to','date-preset'].forEach(f=>{const el=document.getElementById(kind+'-'+f);if(el)el.value='';});requestUi[kind].page=1;renderRequestList(kind);}
 function backToRequestList(kind) {
   requestUi[kind].selected=null;
   const page=document.getElementById('page-'+requestPageId(kind));

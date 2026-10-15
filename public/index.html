@@ -1085,6 +1085,22 @@
             <select id="order-filter" class="select" aria-label="Lọc trạng thái">
               <option value="">Tất cả trạng thái</option><option>Đang xử lý</option><option>Chờ phê duyệt</option><option>Đã giao hàng</option>
             </select>
+            <div class="request-date-filters">
+              <div class="date-range-box" title="Lọc theo khoảng ngày đề nghị">
+                <span class="date-icon" aria-hidden="true">📅</span>
+                <input type="date" id="order-date-from" title="Từ ngày đề nghị" aria-label="Từ ngày">
+                <span class="date-separator">–</span>
+                <input type="date" id="order-date-to" title="Đến ngày đề nghị" aria-label="Đến ngày">
+              </div>
+              <select id="order-date-preset" class="select date-preset" aria-label="Mốc thời gian lọc">
+                <option value="">Tất cả ngày</option>
+                <option value="today">Hôm nay</option>
+                <option value="this_week">Tuần này</option>
+                <option value="this_month">Tháng này</option>
+                <option value="last_month">Tháng trước</option>
+                <option value="this_year">Năm nay</option>
+              </select>
+            </div>
           </div>
           <div class="sheet-list" id="order-list"></div>
           <div class="request-pagination" id="order-pagination"></div>
@@ -1112,6 +1128,22 @@
             <select id="estimate-filter" class="select" aria-label="Lọc mức độ cần thiết">
               <option value="">Tất cả mức độ</option><option>Ưu tiên</option><option>Không cần gấp</option>
             </select>
+            <div class="request-date-filters">
+              <div class="date-range-box" title="Lọc theo khoảng ngày đề nghị">
+                <span class="date-icon" aria-hidden="true">📅</span>
+                <input type="date" id="estimate-date-from" title="Từ ngày đề nghị" aria-label="Từ ngày">
+                <span class="date-separator">–</span>
+                <input type="date" id="estimate-date-to" title="Đến ngày đề nghị" aria-label="Đến ngày">
+              </div>
+              <select id="estimate-date-preset" class="select date-preset" aria-label="Mốc thời gian lọc">
+                <option value="">Tất cả ngày</option>
+                <option value="today">Hôm nay</option>
+                <option value="this_week">Tuần này</option>
+                <option value="this_month">Tháng này</option>
+                <option value="last_month">Tháng trước</option>
+                <option value="this_year">Năm nay</option>
+              </select>
+            </div>
           </div>
           <div class="sheet-list" id="estimate-list"></div>
           <div class="request-pagination" id="estimate-pagination"></div>
