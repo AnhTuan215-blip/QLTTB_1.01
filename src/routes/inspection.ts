@@ -21,8 +21,11 @@ app.post('/', async (c) => {
     body.inspection_date || '', body.next_deadline || ''
   ).run();
 
-  const record = await c.env.DB.prepare('SELECT * FROM inspection WHERE id = ?').bind(meta.last_row_id).first();
-  return c.json(record, 201);
+  const lastId = (meta as any)?.last_row_id ?? (meta as any)?.lastRowId;
+  const record = lastId
+    ? await c.env.DB.prepare('SELECT * FROM inspection WHERE id = ?').bind(lastId).first()
+    : { success: true, ...body };
+  return c.json(record || { success: true, ...body }, 201);
 });
 
 app.put('/:id', async (c) => {
@@ -53,10 +56,11 @@ app.post('/batch', async (c) => {
 
   const statements = items.map((body: any) => {
     return c.env.DB.prepare(
-      `INSERT INTO inspection (name, status, department, model, serial_number, inspection_date, next_deadline)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO inspection (name, status, department, department_detail, model, serial_number, inspection_date, next_deadline)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       body.name || '', body.status || 'Bình Thường', body.department || '',
+      body.department_detail || '',
       body.model || '', body.serial_number || '', body.inspection_date || '',
       body.next_deadline || ''
     );

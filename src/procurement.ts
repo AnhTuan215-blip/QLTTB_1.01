@@ -28,9 +28,15 @@ export function normalizeSheet(body: Data, kind: SheetKind) {
     const name = text(kind === 'order' ? item.order_name : item.device_name);
     if (!name) throw new InputError(`Vui lòng nhập tên thiết bị ở dòng ${index + 1}.`);
     if (kind === 'estimate') {
-      const priority = item.priority || 'Không cần gấp';
-      if (!['Ưu tiên', 'Không cần gấp'].includes(priority)) throw new InputError('Mức độ cần thiết không hợp lệ.');
-      return { id, device_name: name, quantity: quantity(item.quantity, 1), reason: text(item.reason), priority };
+      let priority = text(item.priority);
+      if (!priority || priority.toLowerCase().includes('không')) {
+        priority = 'Không cần gấp';
+      } else if (priority === 'Ưu tiên' || priority.toLowerCase().includes('ưu tiên') || priority.toLowerCase().includes('gấp')) {
+        priority = 'Ưu tiên';
+      } else {
+        priority = 'Không cần gấp';
+      }
+      return { id, device_name: name, quantity: quantity(item.quantity ?? 1, 1), reason: text(item.reason), priority };
     }
     const status = item.status || 'Đang xử lý';
     if (!['Đang xử lý', 'Chờ phê duyệt', 'Đã giao hàng'].includes(status)) throw new InputError('Trạng thái đơn hàng không hợp lệ.');
@@ -81,3 +87,37 @@ export async function importOrders(db: D1Database, items: Data[]) {
   await db.batch(statements);
   return { success: true, count: items.length, sheets: groups.size };
 }
+
+export async function importEstimates(db: D1Database, items: Data[]) {
+  if (!Array.isArray(items) || !items.length || items.length > 500) throw new InputError('Mỗi lần nhập cần từ 1 đến 500 thiết bị dự trù.');
+  const groups = new Map<string, Data>();
+  for (const item of items) {
+    if (!item || typeof item !== 'object') throw new InputError('Dữ liệu dự trù không hợp lệ.');
+    const department = text(item.department) || 'Chưa xác định khoa';
+    let request_date = '';
+    try {
+      request_date = date(item.request_date);
+    } catch {
+      request_date = '';
+    }
+    const key = JSON.stringify([department, request_date]);
+    if (!groups.has(key)) groups.set(key, { department, request_date, items: [] });
+    groups.get(key)!.items.push(item);
+  }
+  const statements: D1PreparedStatement[] = [];
+  for (const group of groups.values()) {
+    const chunkSize = 100;
+    for (let i = 0; i < group.items.length; i += chunkSize) {
+      const subItems = group.items.slice(i, i + chunkSize);
+      const data = normalizeSheet({ department: group.department, request_date: group.request_date, items: subItems }, 'estimate');
+      const id = crypto.randomUUID();
+      statements.push(db.prepare('INSERT INTO request_sheets (id, kind, department, request_date) VALUES (?, ?, ?, ?)').bind(id, 'estimate', data.department, data.request_date));
+      for (const item of data.items) {
+        statements.push(db.prepare('INSERT INTO estimate_items (sheet_id, device_name, quantity, reason, priority) VALUES (?, ?, ?, ?, ?)').bind(id, item.device_name, item.quantity, item.reason, item.priority));
+      }
+    }
+  }
+  await db.batch(statements);
+  return { success: true, count: items.length, sheets: groups.size };
+}
+

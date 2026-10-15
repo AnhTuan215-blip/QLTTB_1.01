@@ -19,6 +19,30 @@ app.post('/', async c => {
   return c.json(sheet!.items[0],201);
 });
 app.post('/batch',async c=>c.json(await importOrders(c.env.DB,await c.req.json()),201));
+app.patch('/:id/status', async (c) => {
+  const db = c.env.DB;
+  const id = c.req.param('id');
+  const body = await c.req.json();
+  const status = body?.status;
+  if (!status) return c.json({ error: 'Thiếu trạng thái' }, 400);
+  const current = await db.prepare('SELECT * FROM orders WHERE id=?').bind(id).first<Record<string, any>>();
+  if (!current) return c.json({ error: 'Không tìm thấy đơn hàng.' }, 404);
+  await db.prepare('UPDATE orders SET status=? WHERE id=?').bind(status, id).run();
+  const updated = await db.prepare('SELECT * FROM orders WHERE id=?').bind(id).first();
+  return c.json(updated);
+});
+
+app.patch('/sheet/:sheetId/status', async (c) => {
+  const db = c.env.DB;
+  const sheetId = c.req.param('sheetId');
+  const body = await c.req.json();
+  const status = body?.status;
+  if (!status) return c.json({ error: 'Thiếu trạng thái' }, 400);
+  await db.prepare('UPDATE orders SET status=? WHERE sheet_id=?').bind(status, sheetId).run();
+  const items = await db.prepare('SELECT * FROM orders WHERE sheet_id=?').bind(sheetId).all();
+  return c.json({ success: true, status, items: items.results });
+});
+
 app.put('/:id',async c=>{
   const db=c.env.DB;
   const current=await db.prepare('SELECT * FROM orders WHERE id=?').bind(c.req.param('id')).first<Record<string,any>>();

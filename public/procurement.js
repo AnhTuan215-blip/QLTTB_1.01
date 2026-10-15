@@ -19,9 +19,22 @@ function requestSheetStatus(sheet) {
   if (items.length && items.every(item => item.status === 'Chờ phê duyệt')) return 'Chờ phê duyệt';
   return 'Đang xử lý';
 }
+const ORDER_STATUS_LIST = ['Đang xử lý', 'Chờ phê duyệt', 'Đã giao hàng'];
+function requestStatusColor(value) {
+  return { 'Đã giao hàng':'green', 'Chờ phê duyệt':'orange', 'Đang xử lý':'blue', 'Ưu tiên':'orange', 'Không cần gấp':'gray' }[value] || 'gray';
+}
 function requestBadge(value) {
-  const color = { 'Đã giao hàng':'green', 'Chờ phê duyệt':'orange', 'Đang xử lý':'blue', 'Ưu tiên':'orange', 'Không cần gấp':'gray' }[value] || 'gray';
+  const color = requestStatusColor(value);
   return '<span class="badge '+color+'">'+escHtml(value)+'</span>';
+}
+function requestStatusSelect(kind, id, currentStatus, isSheet = false) {
+  if (kind !== 'order') return requestBadge(currentStatus);
+  const color = requestStatusColor(currentStatus);
+  const fn = isSheet ? 'quickUpdateSheetStatus' : 'quickUpdateOrderStatus';
+  const param = isSheet ? `'${escHtml(String(id))}'` : Number(id);
+  return `<select class="status-select-btn ${color}" onclick="event.stopPropagation()" onchange="${fn}(${param}, this.value, event)" title="Bấm để chọn trạng thái đơn hàng">`+
+    ORDER_STATUS_LIST.map(st => `<option value="${escHtml(st)}" ${st === currentStatus ? 'selected' : ''}>${escHtml(st)}</option>`).join('')+
+    `</select>`;
 }
 function initRequestPage(kind) {
   const ui = requestUi[kind];
@@ -71,8 +84,8 @@ function renderRequestList(kind) {
   document.getElementById(kind+'-list').innerHTML=shown.length ? shown.map(sheet=>`
     <button type="button" class="sheet-row" data-sheet-id="${escHtml(sheet.id)}" aria-label="Xem phiếu ${escHtml(sheet.department)} ${escHtml(sheetCode(sheet))}">
       <span class="sheet-department-icon" aria-hidden="true">${requestBuildingIcon}</span>
-      <span class="sheet-row-content"><h3>${escHtml(sheet.department)}</h3><span class="sheet-meta"><span class="sheet-code">${escHtml(sheetCode(sheet))}</span><span>${fmtDate(sheet.request_date)||'Chưa có ngày'}</span><span>${requestItems(sheet).length} thiết bị</span></span></span>
-      <span class="sheet-row-end">${requestBadge(requestSheetStatus(sheet))}<span class="sheet-chevron" aria-hidden="true">›</span></span>
+      <span class="sheet-row-content"><h3>${escHtml(sheet.department)}</h3><span class="sheet-meta"><span class="sheet-code">${escHtml(sheetCode(sheet))}</span><span>📅 ${fmtDate(sheet.request_date)||'Chưa có ngày'}</span><span>📦 <strong>${requestItems(sheet).length}</strong> thiết bị</span></span></span>
+      <span class="sheet-row-end">${kind==='order' ? requestStatusSelect('order', sheet.id, requestSheetStatus(sheet), true) : requestBadge(requestSheetStatus(sheet))}<span class="sheet-chevron" aria-hidden="true">›</span></span>
     </button>`).join('') : `<div class="request-empty"><div class="empty-icon">▤</div><h3>${sheets.length?'Không tìm thấy phiếu phù hợp':'Chưa có phiếu '+(kind==='order'?'đặt hàng':'dự trù')}</h3><p>${sheets.length?'Thử một tên thiết bị khác hoặc thay đổi bộ lọc.':'Tạo phiếu đầu tiên và tập hợp nhu cầu của khoa/phòng trong một danh sách.'}</p><button class="btn primary" onclick="${sheets.length?"resetRequestFilters('"+kind+"')":"openRequestEditor('"+kind+"')"}">${sheets.length?'Xóa bộ lọc':'＋ Tạo phiếu đầu tiên'}</button></div>`;
   const start=filtered.length?(ui.page-1)*12+1:0;
   document.getElementById(kind+'-pagination').innerHTML=`<span>Hiển thị ${start}–${Math.min(ui.page*12,filtered.length)} / ${filtered.length} phiếu</span><div><button class="btn sm" ${ui.page===1?'disabled':''} onclick="changeRequestPage('${kind}',-1)" aria-label="Trang trước">‹</button><span>${ui.page} / ${totalPages}</span><button class="btn sm" ${ui.page===totalPages?'disabled':''} onclick="changeRequestPage('${kind}',1)" aria-label="Trang sau">›</button></div>`;
@@ -94,18 +107,33 @@ function showRequestDetail(kind,id) {
   const detail=page.querySelector('.request-detail-area');
   detail.hidden=false;
   const items=requestItems(sheet);
-  const field=(label,value)=>'<dl><dt>'+label+'</dt><dd>'+escHtml(value==null||value===''?'—':value)+'</dd></dl>';
+  const field=(label,value,isImportant=false,type='')=>{
+    const empty=value==null||value===''||value==='—';
+    const displayVal=empty?'—':String(value);
+    let innerHtml=escHtml(displayVal);
+    if(!empty){
+      if(type==='qty'){
+        innerHtml=`<span class="order-badge-qty">${escHtml(displayVal)}</span>`;
+      }else if(type==='total_qty'){
+        innerHtml=`<span class="order-badge-total">${escHtml(displayVal)}</span>`;
+      }else if(isImportant){
+        innerHtml=`<strong>${escHtml(displayVal)}</strong>`;
+      }
+    }
+    const cls=[isImportant?'is-important':'',type?`field-${type}`:''].filter(Boolean).join(' ');
+    return `<dl class="${cls}"><dt>${escHtml(label)}</dt><dd>${innerHtml}</dd></dl>`;
+  };
   detail.innerHTML=`<button class="back-link" onclick="backToRequestList('${kind}')">← Danh sách ${kind==='order'?'đơn hàng':'dự trù'}</button>
     <div class="detail-banner">
-      <div class="detail-banner-left"><div class="sheet-department-icon" aria-hidden="true">${requestBuildingIcon}</div><div><div class="eyebrow">PHIẾU ${kind==='order'?'ĐẶT HÀNG':'DỰ TRÙ'}</div><h1>${escHtml(sheet.department)}</h1><div class="detail-meta"><span>${escHtml(sheetCode(sheet))}</span><span>Ngày đề nghị: ${fmtDate(sheet.request_date)||'—'}</span>${requestBadge(requestSheetStatus(sheet))}</div></div></div>
+      <div class="detail-banner-left"><div class="sheet-department-icon" aria-hidden="true">${requestBuildingIcon}</div><div><div class="eyebrow">PHIẾU ${kind==='order'?'ĐẶT HÀNG':'DỰ TRÙ'}</div><h1>${escHtml(sheet.department)}</h1><div class="detail-meta"><span class="sheet-code-pill">${escHtml(sheetCode(sheet))}</span><span>📅 Ngày đề nghị: <strong>${fmtDate(sheet.request_date)||'—'}</strong></span>${kind==='order' ? requestStatusSelect('order', sheet.id, requestSheetStatus(sheet), true) : requestBadge(requestSheetStatus(sheet))}</div></div></div>
       <div class="detail-toolbar"><button class="btn" data-action="export">Xuất phiếu</button><button class="btn danger" data-action="delete">Xóa phiếu</button><button class="btn primary" data-action="edit">Chỉnh sửa phiếu</button></div>
     </div>
-    <div class="detail-items-title"><h2>Thiết bị trong phiếu</h2><span>${items.length} thiết bị · ${items.reduce((sum,i)=>sum+Number(i.quantity||0),0)} tổng số lượng</span></div>
-    ${items.map((item,index)=>`<article class="detail-item"><div class="detail-item-head"><div class="detail-item-title"><span class="item-number">${String(index+1).padStart(2,'0')}</span><h3>${escHtml(item.order_name||item.device_name)}</h3></div>${requestBadge(kind==='order'?item.status:item.priority)}</div>
+    <div class="detail-items-title"><h2>Thiết bị trong phiếu</h2><span><strong>${items.length}</strong> thiết bị · <strong>${items.reduce((sum,i)=>sum+Number(i.quantity||0),0)}</strong> tổng số lượng</span></div>
+    ${items.map((item,index)=>`<article class="detail-item"><div class="detail-item-head"><div class="detail-item-title"><span class="item-number">${String(index+1).padStart(2,'0')}</span><h3>${escHtml(item.order_name||item.device_name)}</h3></div>${kind==='order' ? requestStatusSelect('order', item.id, item.status || 'Đang xử lý', false) : requestBadge(item.priority)}</div>
       <div class="detail-item-grid">${kind==='order'
-        ?field('Số lượng mua',item.quantity)+field('Tổng số lượng',item.total_quantity)+field('Lý do',item.reason)+field('Ngày phê duyệt',fmtDate(item.approval_date))+field('Ngày bàn giao',fmtDate(item.handover_date))+field('Người nhận',item.receiver)
-        :field('Khoa/phòng',sheet.department)+field('Số lượng cần',item.quantity)+field('Lý do',item.reason)+field('Mức độ cần thiết',item.priority)}</div>
-      ${kind==='order'&&item.note?'<div class="detail-item-note">Ghi chú: '+escHtml(item.note)+'</div>':''}</article>`).join('')}`;
+        ?field('Số lượng mua',item.quantity,true,'qty')+field('Tổng số lượng',item.total_quantity,true,'total_qty')+field('Người nhận',item.receiver,true,'receiver')+field('Ngày phê duyệt',fmtDate(item.approval_date),Boolean(item.approval_date),'date')+field('Ngày bàn giao',fmtDate(item.handover_date),Boolean(item.handover_date),'date')+field('Lý do',item.reason,false,'reason')
+        :field('Khoa/phòng',sheet.department,true,'dept')+field('Số lượng cần',item.quantity,true,'qty')+field('Mức độ cần thiết',item.priority,true,'priority')+field('Lý do',item.reason,false,'reason')}</div>
+      ${kind==='order'&&item.note?'<div class="detail-item-note"><strong>📝 Ghi chú:</strong> '+escHtml(item.note)+'</div>':''}</article>`).join('')}`;
   detail.querySelector('[data-action="edit"]').onclick=()=>openRequestEditor(kind,id);
   detail.querySelector('[data-action="delete"]').onclick=()=>deleteRequestSheet(kind,id);
   detail.querySelector('[data-action="export"]').onclick=()=>exportRequestList(kind,id);
@@ -230,6 +258,68 @@ function exportRequestList(kind,id=null) {
   const columns=kind==='order'?[{key:'sheet_code',label:'Mã phiếu'},{key:'department',label:'Khoa/Phòng'},{key:'order_name',label:'Tên thiết bị'},{key:'request_date',label:'Ngày đề nghị'},{key:'quantity',label:'SL mua'},{key:'total_quantity',label:'Tổng SL'},{key:'reason',label:'Lý do'},{key:'status',label:'Trạng thái'},{key:'approval_date',label:'Ngày phê duyệt'},{key:'handover_date',label:'Ngày bàn giao'},{key:'receiver',label:'Người nhận'},{key:'note',label:'Ghi chú'}]
     :[{key:'sheet_code',label:'Mã phiếu'},{key:'department',label:'Khoa'},{key:'device_name',label:'Tên thiết bị'},{key:'quantity',label:'Số lượng cần'},{key:'reason',label:'Lý do'},{key:'priority',label:'Mức độ cần thiết'},{key:'request_date',label:'Ngày đề nghị'}];
   exportExcel(rows,columns,(kind==='order'?'don-hang':'du-tru')+'.xlsx');
+}
+async function quickUpdateOrderStatus(itemId, newStatus, event) {
+  if (event) event.stopPropagation();
+  const item = state.orders.find(o => o.id === itemId);
+  if (!item) return;
+  const prevStatus = item.status;
+  item.status = newStatus;
+  if (event && event.target) {
+    event.target.className = 'status-select-btn ' + requestStatusColor(newStatus);
+  }
+  try {
+    await apiFetch('/orders/' + encodeURIComponent(itemId) + '/status', {
+      method: 'PATCH',
+      body: JSON.stringify({ status: newStatus })
+    });
+    toast('Đã cập nhật trạng thái: ' + newStatus);
+    if (requestUi.order.selected) {
+      showRequestDetail('order', requestUi.order.selected);
+    } else {
+      renderRequestList('order');
+    }
+  } catch(err) {
+    item.status = prevStatus;
+    if (event && event.target) {
+      event.target.value = prevStatus;
+      event.target.className = 'status-select-btn ' + requestStatusColor(prevStatus);
+    }
+    toast('Lỗi cập nhật trạng thái: ' + err.message, 'error');
+  }
+}
+async function quickUpdateSheetStatus(sheetId, newStatus, event) {
+  if (event) event.stopPropagation();
+  const sheet = state.request_sheets.find(s => s.id === sheetId);
+  if (!sheet) return;
+  const items = state.orders.filter(o => o.sheet_id === sheetId);
+  const prevStatuses = items.map(i => ({ id: i.id, status: i.status }));
+  items.forEach(i => i.status = newStatus);
+  if (event && event.target) {
+    event.target.className = 'status-select-btn ' + requestStatusColor(newStatus);
+  }
+  try {
+    await apiFetch('/orders/sheet/' + encodeURIComponent(sheetId) + '/status', {
+      method: 'PATCH',
+      body: JSON.stringify({ status: newStatus })
+    });
+    toast('Đã cập nhật toàn bộ phiếu sang: ' + newStatus);
+    if (requestUi.order.selected === sheetId) {
+      showRequestDetail('order', sheetId);
+    } else {
+      renderRequestList('order');
+    }
+  } catch(err) {
+    prevStatuses.forEach(p => {
+      const it = state.orders.find(o => o.id === p.id);
+      if (it) it.status = p.status;
+    });
+    if (event && event.target) {
+      event.target.value = requestSheetStatus(sheet);
+      event.target.className = 'status-select-btn ' + requestStatusColor(requestSheetStatus(sheet));
+    }
+    toast('Lỗi cập nhật phiếu: ' + err.message, 'error');
+  }
 }
 function exportOrders(){exportRequestList('order');}
 document.getElementById('request-form').addEventListener('submit',saveRequestSheet);

@@ -1,11 +1,15 @@
 import { Hono } from 'hono';
 import { Env } from '../types';
-import { InputError, normalizeSheet, createSheet, readSheet, orderInsert, SheetKind } from '../procurement';
+import { InputError, normalizeSheet, createSheet, readSheet, orderInsert, SheetKind, importEstimates } from '../procurement';
 const app = new Hono<Env>();
 app.onError((error, c) => {
   if (error instanceof InputError || error instanceof SyntaxError) return c.json({ error: error.message }, 400);
   console.error('Request sheet error:', error);
   return c.json({ error: 'Không thể lưu phiếu. Vui lòng thử lại.' }, 500);
+});
+app.post('/estimates/batch', async c => {
+  const body = await c.req.json();
+  return c.json(await importEstimates(c.env.DB, body), 201);
 });
 app.get('/:id', async c => {
   const sheet = await readSheet(c.env.DB, c.req.param('id'));

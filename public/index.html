@@ -25,7 +25,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5;
+    background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.55;
   }
   .app { display: flex; min-height: 100vh; }
   .sidebar {
@@ -35,14 +35,14 @@
   .logo {
     padding: 0 20px 20px; border-bottom: 1px solid var(--border);
     display: flex; align-items: center; gap: 10px;
-    font-weight: 700; font-size: 16px; color: var(--primary);
+    font-weight: 700; font-size: 18px; color: var(--primary);
   }
   .logo svg { width: 28px; height: 28px; }
   .nav { padding: 20px 12px; }
   .nav-item {
     display: flex; align-items: center; gap: 12px; padding: 10px 14px;
     border-radius: 8px; cursor: pointer; color: var(--text-muted);
-    font-weight: 500; margin-bottom: 4px; transition: background 0.12s;
+    font-size: 13.5px; font-weight: 500; margin-bottom: 4px; transition: background 0.12s;
   }
   .nav-item:hover { background: #f1f5f9; color: var(--text); }
   .nav-item.active {
@@ -54,8 +54,8 @@
   .page-header {
     display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
   }
-  .page-title { font-size: 22px; font-weight: 700; }
-  .page-sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+  .page-title { font-size: 24px; font-weight: 700; }
+  .page-sub { color: var(--text-muted); font-size: 13.5px; margin-top: 2px; }
   .grid { display: grid; gap: 16px; }
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
@@ -81,12 +81,12 @@
   .stat-icon.red { background: #fee2e2; color: var(--danger); }
   .stat-icon.teal { background: #ccfbf1; color: #14b8a6; }
   .stat-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat-value { font-size: 26px; font-weight: 700; }
-  .stat-sub { font-size: 12px; color: var(--text-muted); }
+  .stat-value { font-size: 28px; font-weight: 700; }
+  .stat-sub { font-size: 12.5px; color: var(--text-muted); }
   .btn {
-    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px;
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
     border-radius: 8px; border: 1px solid var(--border); background: var(--card);
-    color: var(--text); cursor: pointer; font-size: 13px; font-weight: 500;
+    color: var(--text); cursor: pointer; font-size: 13.5px; font-weight: 500;
     transition: background 0.12s; font-family: inherit;
   }
   .btn:hover { background: #f1f5f9; }
@@ -96,15 +96,15 @@
   }
   .btn.primary:hover { opacity: 0.9; }
   .btn.danger { color: var(--danger); border-color: #fecaca; }
-  .btn.sm { padding: 5px 10px; font-size: 12px; }
+  .btn.sm { padding: 5px 12px; font-size: 12.5px; }
   .btn svg { width: 14px; height: 14px; }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .filters {
     display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
   }
   .input, .select {
-    padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
-    font-size: 13px; background: #fff; font-family: inherit;
+    padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13.5px; background: #fff; font-family: inherit;
   }
   .input:focus, .select:focus {
     outline: none; border-color: var(--primary);
@@ -115,21 +115,21 @@
     position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
     width: 16px; height: 16px; color: var(--text-muted);
   }
-  .search-box input { width: 100%; padding-left: 34px; }
+  .search-box input { width: 100%; padding-left: 36px; font-size: 13.5px; }
   .table-wrap {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);
   }
   .table-scroll { overflow: auto; max-height: 65vh; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   thead { background: #f8fafc; position: sticky; top: 0; z-index: 1; }
-  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
-  th { font-weight: 600; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  th, td { padding: 11px 13px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
   tbody tr:hover { background: #f8fafc; }
   .actions { display: flex; gap: 6px; }
   .badge {
-    display: inline-flex; align-items: center; padding: 3px 10px;
-    border-radius: 12px; font-size: 11px; font-weight: 600;
+    display: inline-flex; align-items: center; padding: 4px 10px;
+    border-radius: 12px; font-size: 11.5px; font-weight: 600;
   }
   .badge.green { background: #d1fae5; color: #065f46; }
   .badge.red { background: #fee2e2; color: #991b1b; }
@@ -151,7 +151,7 @@
     padding: 18px 24px; border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
   }
-  .modal-title { font-size: 16px; font-weight: 700; }
+  .modal-title { font-size: 18px; font-weight: 700; }
   .modal-body { padding: 20px 24px; }
   .modal-footer {
     padding: 14px 24px; border-top: 1px solid var(--border);
@@ -160,13 +160,13 @@
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .form-group { display: flex; flex-direction: column; }
   .form-group.full { grid-column: 1 / -1; }
-  .form-group label { font-size: 12px; font-weight: 600; margin-bottom: 5px; color: var(--text-muted); }
+  .form-group label { font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--text-muted); }
   .form-group input, .form-group select {
-    padding: 8px 10px; border: 1px solid var(--border);
-    border-radius: 6px; font-size: 13px; font-family: inherit;
+    padding: 9px 11px; border: 1px solid var(--border);
+    border-radius: 6px; font-size: 13.5px; font-family: inherit;
   }
   .chart-card { min-height: 340px; }
-  .chart-title { font-weight: 600; margin-bottom: 12px; font-size: 14px; }
+  .chart-title { font-weight: 600; margin-bottom: 12px; font-size: 15px; }
   .loading {
     display: flex; align-items: center; justify-content: center; padding: 60px; color: var(--text-muted);
   }
@@ -179,7 +179,7 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   .toast {
     position: fixed; bottom: 24px; right: 24px; background: var(--text); color: #fff;
-    padding: 12px 18px; border-radius: 8px; font-size: 13px; z-index: 200;
+    padding: 12px 18px; border-radius: 8px; font-size: 13.5px; z-index: 200;
     animation: slideIn 0.2s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   }
   .toast.success { background: var(--success); }
@@ -202,13 +202,14 @@
     display: flex; justify-content: space-between; align-items: center;
     padding: 4px 6px 8px; border-bottom: 2px solid; margin-bottom: 4px;
   }
-  .kanban-col-header.todo { border-color: #94a3b8; }
+
+.kanban-col-header.todo { border-color: #94a3b8; }
   .kanban-col-header.doing { border-color: #3b82f6; }
   .kanban-col-header.done { border-color: #10b981; }
-  .kanban-col-title { font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .kanban-col-title { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
   .kanban-col-count {
     background: var(--card); border: 1px solid var(--border);
-    padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600;
   }
   .task-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 10px;
@@ -216,14 +217,14 @@
   }
   .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-color: var(--primary); }
   .task-card.dragging { opacity: 0.4; }
-  .task-card-title { font-weight: 600; margin-bottom: 8px; font-size: 13px; line-height: 1.4; }
+  .task-card-title { font-weight: 600; margin-bottom: 8px; font-size: 14px; line-height: 1.4; }
   .task-card-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .task-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-muted); }
+  .task-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-muted); }
   .task-assignee { display: flex; align-items: center; gap: 5px; font-weight: 500; color: var(--text); }
   .task-avatar {
-    width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+    width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
     color: #fff; display: inline-flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700;
+    font-size: 11.5px; font-weight: 700;
   }
   .priority-high { background: #fee2e2; color: #991b1b; }
   .priority-med { background: #fed7aa; color: #9a3412; }
@@ -231,7 +232,7 @@
   .view-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
   .view-switch button {
     padding: 6px 12px; border: none; background: #fff; cursor: pointer;
-    font-size: 12px; font-weight: 500; color: var(--text-muted); font-family: inherit;
+    font-size: 13px; font-weight: 500; color: var(--text-muted); font-family: inherit;
     display: inline-flex; align-items: center; gap: 6px;
   }
   .view-switch button svg { width: 14px; height: 14px; }
@@ -244,14 +245,14 @@
   .history-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
   .history-tab {
     padding: 8px 14px; border: none; background: none; cursor: pointer;
-    font-size: 13px; font-weight: 500; color: var(--text-muted); font-family: inherit;
+    font-size: 13.5px; font-weight: 500; color: var(--text-muted); font-family: inherit;
     border-bottom: 2px solid transparent; margin-bottom: -1px;
     display: inline-flex; align-items: center; gap: 6px;
   }
   .history-tab:hover { color: var(--text); }
   .history-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
   .history-tab .tab-count {
-    background: #e2e8f0; padding: 1px 7px; border-radius: 10px; font-size: 11px; font-weight: 600;
+    background: #e2e8f0; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600;
   }
   .history-tab.active .tab-count { background: var(--primary); color: #fff; }
 
@@ -273,11 +274,11 @@
   .tl-item.red::before { border-color: var(--danger); }
   .tl-item.purple::before { border-color: #8b5cf6; }
   .tl-date {
-    font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;
+    font-size: 13px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;
     display: flex; align-items: center; gap: 8px;
   }
-  .tl-title { font-weight: 600; margin-bottom: 4px; font-size: 13px; }
-  .tl-body { color: var(--text-muted); font-size: 12px; line-height: 1.5; }
+  .tl-title { font-weight: 600; margin-bottom: 4px; font-size: 14px; }
+  .tl-body { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
   .tl-body strong { color: var(--text); }
   .tl-meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
 
@@ -289,8 +290,8 @@
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
   }
   @media (max-width: 700px) { .device-info-grid { grid-template-columns: 1fr 1fr; } }
-  .device-info-item { font-size: 12px; }
-  .device-info-label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+  .device-info-item { font-size: 13px; }
+  .device-info-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
   .device-info-value { font-weight: 600; color: var(--text); }
 
   /* Make history modal wider */
@@ -303,12 +304,12 @@
 
   .pagination {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13px;
+    padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13.5px;
   }
   .pagination-controls { display: flex; gap: 4px; align-items: center; }
   .page-btn {
-    padding: 4px 10px; border: 1px solid var(--border); background: #fff;
-    border-radius: 6px; cursor: pointer; font-size: 12px;
+    padding: 5px 12px; border: 1px solid var(--border); background: #fff;
+    border-radius: 6px; cursor: pointer; font-size: 13px;
   }
   .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
   .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -376,7 +377,7 @@
 
   /* Stat cards */
   .stat-value { font-size: 20px; }
-  .stat-label { font-size: 11px; }
+  .stat-label { font-size: 12px; }
 
   /* Device history modal */
   .device-info-grid { grid-template-columns: 1fr !important; }
@@ -393,7 +394,7 @@
 @media print {
   .sidebar, .header, #hamburger-btn, #mobile-overlay, .modal, .toast-container, .filters, .btn { display: none !important; }
   .main { margin-left: 0 !important; padding: 0 !important; }
-  table { font-size: 10px; }
+  table { font-size: 12px; }
   .page { display: block !important; }
 }
 #hamburger-btn {
@@ -547,13 +548,18 @@
           <option>Còn bảo hành</option>
           <option>Hết bảo hành</option>
         </select>
+        <select class="select" id="asset-sort-code" title="Lọc và sắp xếp theo thứ tự mã tài sản">
+          <option value="">Thứ tự mã TS: Mặc định</option>
+          <option value="asc">Mã tài sản: Tăng dần (A → Z)</option>
+          <option value="desc">Mã tài sản: Giảm dần (Z → A)</option>
+        </select>
         <span id="asset-count" style="color:var(--text-muted);font-size:12px;margin-left:auto"></span>
       </div>
       <div class="table-wrap">
         <div class="table-scroll">
           <table>
             <thead><tr>
-              <th>Mã TS</th><th>Tên thiết bị</th><th>Tình trạng</th><th>Khoa</th>
+              <th id="th-asset-code" style="cursor:pointer;user-select:none" onclick="toggleAssetCodeSort()" title="Bấm để lọc / sắp xếp theo thứ tự mã tài sản">Mã TS <span id="asset-code-sort-icon" style="font-size:12px;opacity:0.8">⇅</span></th><th>Tên thiết bị</th><th>Tình trạng</th><th>Khoa</th>
               <th>Model</th><th>Serial</th><th>BH bắt đầu</th><th>Thời hạn</th>
               <th>Status BH</th><th>Ngày HĐ</th><th>Lắp đặt</th><th>Vận hành</th><th>Nghiệm thu</th><th>Giá</th><th></th>
             </tr></thead>
@@ -587,6 +593,11 @@
           <option>Đang xử lý</option>
           <option>Chưa làm</option>
         </select>
+        <select class="select" id="mt-sort-code" title="Lọc và sắp xếp theo thứ tự mã tài sản">
+          <option value="">Thứ tự mã TS: Mặc định</option>
+          <option value="asc">Mã tài sản: Tăng dần (A → Z)</option>
+          <option value="desc">Mã tài sản: Giảm dần (Z → A)</option>
+        </select>
         <div class="search-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input class="input" id="mt-search" placeholder="Tìm thiết bị...">
@@ -602,7 +613,7 @@
           <table>
             <thead><tr>
               <th style="width:36px;text-align:center"><input type="checkbox" id="chk-mt-all" onchange="toggleSelectAllMaintenance(this)"></th>
-              <th>Mã TS</th><th>Tên thiết bị</th><th>Khoa</th><th>Model</th>
+              <th id="th-mt-code" style="cursor:pointer;user-select:none" onclick="toggleMtCodeSort()" title="Bấm để lọc / sắp xếp theo thứ tự mã tài sản">Mã TS <span id="mt-code-sort-icon" style="font-size:12px;opacity:0.8">⇅</span></th><th>Tên thiết bị</th><th>Khoa</th><th>Model</th>
               <th>Tuần</th><th>Ngày dự kiến</th><th>Ngày thực tế</th>
               <th>Trạng thái</th><th>Người thực hiện</th><th>Ghi chú</th><th></th>
             </tr></thead>
@@ -616,10 +627,11 @@
     <div class="page" id="page-inspection">
       <div class="page-header">
         <div>
+          <div class="eyebrow">KIỂM ĐỊNH & HIỆU CHUẨN</div>
           <div class="page-title">Kiểm định thiết bị</div>
-          <div class="page-sub">Các thiết bị cận hạn kiểm định</div>
+          <div class="page-sub">Theo dõi lịch kiểm định, hiệu chuẩn và hạn kiểm định của thiết bị y tế</div>
         </div>
-        <div style="display:flex;gap:8px">
+        <div style="display:flex;gap:8px" class="header-actions">
           <button class="btn" onclick="exportInspection()" title="Xuất Excel">📥 Xuất Excel</button>
           <button class="btn" onclick="openImportModal('inspection')" title="Nhập từ file Excel">📤 Nhập Excel</button>
           <button class="btn primary" onclick="openInspModal()">
@@ -635,20 +647,22 @@
           <option value="60">Cận hạn ≤ 60 ngày</option>
           <option value="90" selected>Cận hạn ≤ 90 ngày</option>
           <option value="180">Cận hạn ≤ 180 ngày</option>
-          <option value="all">Tất cả</option>
+          <option value="all">Tất cả thời hạn</option>
           <option value="expired">Đã hết hạn</option>
         </select>
+        <select class="select" id="insp-dept-filter"><option value="">Tất cả khoa/phòng</option></select>
         <div class="search-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="input" id="insp-search" placeholder="Tìm thiết bị...">
+          <input class="input" id="insp-search" placeholder="Tìm thiết bị, model, serial, khoa...">
         </div>
+        <span id="insp-count" style="color:var(--text-muted);font-size:12px;margin-left:auto"></span>
       </div>
       <div class="table-wrap">
         <div class="table-scroll">
           <table>
             <thead><tr>
-              <th>Tên thiết bị</th><th>Tình trạng</th><th>Khoa</th><th>Model</th>
-              <th>Serial</th><th>Ngày KĐ</th><th>Hạn kế tiếp</th><th>Còn lại</th><th></th>
+              <th>Tên thiết bị</th><th>Tình trạng</th><th>Khoa / Vị trí</th><th>Model</th>
+              <th>Serial</th><th>Ngày KĐ</th><th>Hạn kế tiếp</th><th>Còn lại</th><th>Hành động</th>
             </tr></thead>
             <tbody id="insp-tbody"></tbody>
           </table>
@@ -664,43 +678,53 @@
         </div>
         <div class="modal-body">
           <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">Tên thiết bị *</label>
-              <input class="input" id="insp-name" type="text" placeholder="Tên thiết bị">
+            <div class="form-group full">
+              <label class="form-label" for="insp-name">Tên thiết bị *</label>
+              <input class="input" id="insp-name" type="text" placeholder="Nhập tên thiết bị y tế" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Tình trạng</label>
-              <input class="input" id="insp-status" type="text" placeholder="Tình trạng">
+              <label class="form-label" for="insp-status">Tình trạng</label>
+              <select class="select" id="insp-status">
+                <option value="Bình Thường">Bình Thường</option>
+                <option value="Hư hỏng">Hư hỏng</option>
+                <option value="Chờ kiểm định">Chờ kiểm định</option>
+                <option value="Đang xử lý">Đang xử lý</option>
+                <option value="Ngưng Hoạt Động">Ngưng Hoạt Động</option>
+              </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Khoa/Phòng</label>
-              <input class="input" id="insp-dept" type="text" placeholder="Khoa/Phòng">
+              <label class="form-label" for="insp-dept">Khoa/Phòng</label>
+              <input class="input" id="insp-dept" list="insp-dept-list" type="text" placeholder="Chọn hoặc nhập khoa">
+              <datalist id="insp-dept-list"></datalist>
             </div>
             <div class="form-group">
-              <label class="form-label">Chi tiết khoa</label>
-              <input class="input" id="insp-deptdetail" type="text" placeholder="Chi tiết khoa">
+              <label class="form-label" for="insp-deptdetail">Chi tiết khoa / Vị trí</label>
+              <input class="input" id="insp-deptdetail" type="text" placeholder="Phòng, tầng, vị trí đặt máy...">
             </div>
             <div class="form-group">
-              <label class="form-label">Model</label>
-              <input class="input" id="insp-model" type="text" placeholder="Model">
+              <label class="form-label" for="insp-model">Model</label>
+              <input class="input" id="insp-model" type="text" placeholder="Model máy">
             </div>
             <div class="form-group">
-              <label class="form-label">Serial Number</label>
-              <input class="input" id="insp-serial" type="text" placeholder="Serial Number">
+              <label class="form-label" for="insp-serial">Số Serial</label>
+              <input class="input" id="insp-serial" type="text" placeholder="Số Serial">
             </div>
             <div class="form-group">
-              <label class="form-label">Ngày kiểm định</label>
+              <label class="form-label" for="insp-date">Ngày kiểm định gần nhất</label>
               <input class="input" id="insp-date" type="date">
             </div>
             <div class="form-group">
-              <label class="form-label">Hạn KĐ tiếp theo</label>
+              <label class="form-label" for="insp-deadline">Hạn KĐ tiếp theo *</label>
               <input class="input" id="insp-deadline" type="date">
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button class="btn" onclick="closeInspModal()">Hủy</button>
-          <button class="btn primary" onclick="saveInsp()">Lưu</button>
+          <button class="btn primary" id="insp-save-btn" onclick="saveInsp()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Lưu</span>
+          </button>
         </div>
       </div>
     </div>
@@ -1075,7 +1099,7 @@
           <div><div class="eyebrow">MUA SẮM & CUNG ỨNG</div><h1 class="page-title">Dự trù thiết bị</h1><p class="page-sub">Tập hợp nhu cầu thiết bị và ưu tiên mua sắm của các khoa/phòng.</p></div>
           <div class="header-actions">
             <button class="btn" onclick="exportRequestList('estimate')">Xuất Excel</button>
-            
+            <button class="btn" onclick="openImportModal('estimates')">Nhập Excel</button>
             <button class="btn primary" onclick="openRequestEditor('estimate')"><span aria-hidden="true">＋</span> Tạo phiếu dự trù</button>
           </div>
         </div>
@@ -2000,9 +2024,23 @@ function initAssets() {
 
   const debouncedRender = debounce(() => { state.pagination.assets = 1; renderAssets(); }, 200);
   document.getElementById('asset-search').addEventListener('input', debouncedRender);
-  ['asset-dept','asset-status','asset-warranty'].forEach(id =>
-    document.getElementById(id).addEventListener('change', () => { state.pagination.assets = 1; renderAssets(); })
+  ['asset-dept','asset-status','asset-warranty','asset-sort-code'].forEach(id =>
+    document.getElementById(id)?.addEventListener('change', () => { state.pagination.assets = 1; renderAssets(); })
   );
+  renderAssets();
+}
+
+function toggleAssetCodeSort() {
+  const sel = document.getElementById('asset-sort-code');
+  if (!sel) return;
+  if (sel.value === '') {
+    sel.value = 'asc';
+  } else if (sel.value === 'asc') {
+    sel.value = 'desc';
+  } else {
+    sel.value = '';
+  }
+  state.pagination.assets = 1;
   renderAssets();
 }
 
@@ -2011,6 +2049,14 @@ function renderAssets() {
   const dept = document.getElementById('asset-dept').value;
   const status = document.getElementById('asset-status').value;
   const wr = document.getElementById('asset-warranty').value;
+  const sortCode = document.getElementById('asset-sort-code')?.value || '';
+
+  const iconEl = document.getElementById('asset-code-sort-icon');
+  if (iconEl) {
+    iconEl.textContent = sortCode === 'asc' ? '▲' : sortCode === 'desc' ? '▼' : '⇅';
+    iconEl.style.color = sortCode ? 'var(--primary)' : 'inherit';
+    iconEl.style.fontWeight = sortCode ? '700' : 'normal';
+  }
 
   const filtered = state.assets.filter(r => {
     if (dept && r.department !== dept) return false;
@@ -2022,6 +2068,12 @@ function renderAssets() {
     }
     return true;
   });
+
+  if (sortCode === 'asc') {
+    filtered.sort((a, b) => String(a.code || '').localeCompare(String(b.code || ''), 'vi', { numeric: true, sensitivity: 'base' }));
+  } else if (sortCode === 'desc') {
+    filtered.sort((a, b) => String(b.code || '').localeCompare(String(a.code || ''), 'vi', { numeric: true, sensitivity: 'base' }));
+  }
 
   document.getElementById('asset-count').textContent = `${filtered.length} / ${state.assets.length} thiết bị`;
 
@@ -2200,9 +2252,23 @@ function initMaintenance() {
 
   const debouncedRender = debounce(() => { state.pagination.maintenance = 1; renderMaintenance(); }, 200);
   document.getElementById('mt-search').addEventListener('input', debouncedRender);
-  ['mt-week','mt-status'].forEach(id =>
-    document.getElementById(id).addEventListener('change', () => { state.pagination.maintenance = 1; renderMaintenance(); })
+  ['mt-week','mt-status','mt-sort-code'].forEach(id =>
+    document.getElementById(id)?.addEventListener('change', () => { state.pagination.maintenance = 1; renderMaintenance(); })
   );
+  renderMaintenance();
+}
+
+function toggleMtCodeSort() {
+  const sel = document.getElementById('mt-sort-code');
+  if (!sel) return;
+  if (sel.value === '') {
+    sel.value = 'asc';
+  } else if (sel.value === 'asc') {
+    sel.value = 'desc';
+  } else {
+    sel.value = '';
+  }
+  state.pagination.maintenance = 1;
   renderMaintenance();
 }
 
@@ -2210,6 +2276,14 @@ function renderMaintenance() {
   const week = document.getElementById('mt-week').value;
   const status = document.getElementById('mt-status').value;
   const q = document.getElementById('mt-search').value.toLowerCase();
+  const mtSortCode = document.getElementById('mt-sort-code')?.value || '';
+
+  const mtIconEl = document.getElementById('mt-code-sort-icon');
+  if (mtIconEl) {
+    mtIconEl.textContent = mtSortCode === 'asc' ? '▲' : mtSortCode === 'desc' ? '▼' : '⇅';
+    mtIconEl.style.color = mtSortCode ? 'var(--primary)' : 'inherit';
+    mtIconEl.style.fontWeight = mtSortCode ? '700' : 'normal';
+  }
 
   const filtered = state.maintenance.filter(r => {
     if (week && r.week !== week) return false;
@@ -2220,6 +2294,12 @@ function renderMaintenance() {
     }
     return true;
   });
+
+  if (mtSortCode === 'asc') {
+    filtered.sort((a, b) => String(a.asset_code || '').localeCompare(String(b.asset_code || ''), 'vi', { numeric: true, sensitivity: 'base' }));
+  } else if (mtSortCode === 'desc') {
+    filtered.sort((a, b) => String(b.asset_code || '').localeCompare(String(a.asset_code || ''), 'vi', { numeric: true, sensitivity: 'base' }));
+  }
 
   const done = filtered.filter(r => r.status === 'Hoàn thành').length;
   const doing = filtered.filter(r => r.status === 'Đang xử lý').length;
@@ -2394,51 +2474,93 @@ async function saveMt() {
 
 // ============ INSPECTION ============
 function initInspection() {
+  const depts = [...new Set(state.inspection.map(r => r.department).filter(Boolean))].sort();
+  const deptFilter = document.getElementById('insp-dept-filter');
+  if (deptFilter) {
+    const curVal = deptFilter.value;
+    deptFilter.innerHTML = '<option value="">Tất cả khoa/phòng</option>' + depts.map(d => `<option value="${escHtml(d)}">${escHtml(d)}</option>`).join('');
+    if (depts.includes(curVal)) deptFilter.value = curVal;
+  }
+
   const debouncedRender = debounce(renderInspection, 200);
-  document.getElementById('insp-search').addEventListener('input', debouncedRender);
-  document.getElementById('insp-range').addEventListener('change', renderInspection);
+  const searchInput = document.getElementById('insp-search');
+  searchInput.removeEventListener('input', debouncedRender);
+  searchInput.addEventListener('input', debouncedRender);
+
+  const rangeSelect = document.getElementById('insp-range');
+  rangeSelect.removeEventListener('change', renderInspection);
+  rangeSelect.addEventListener('change', renderInspection);
+
+  if (deptFilter) {
+    deptFilter.removeEventListener('change', renderInspection);
+    deptFilter.addEventListener('change', renderInspection);
+  }
+
   renderInspection();
 }
 
 function renderInspection() {
-  const range = document.getElementById('insp-range').value;
-  const q = document.getElementById('insp-search').value.toLowerCase();
+  const range = document.getElementById('insp-range')?.value || '90';
+  const dept = document.getElementById('insp-dept-filter')?.value || '';
+  const q = document.getElementById('insp-search')?.value.toLowerCase().trim() || '';
 
   let filtered = state.inspection.map(r => ({ ...r, _days: daysDiff(r.next_deadline) }));
+  
   if (range === 'expired') filtered = filtered.filter(r => r._days !== null && r._days < 0);
   else if (range !== 'all') filtered = filtered.filter(r => r._days !== null && r._days >= 0 && r._days <= Number(range));
-  if (q) filtered = filtered.filter(r => `${r.name||''} ${r.model||''} ${r.serial_number||''}`.toLowerCase().includes(q));
+  
+  if (dept) filtered = filtered.filter(r => (r.department || '') === dept);
+
+  if (q) {
+    filtered = filtered.filter(r => {
+      const haystack = `${r.name||''} ${r.model||''} ${r.serial_number||''} ${r.department||''} ${r.department_detail||''}`.toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+
   filtered.sort((a,b) => (a._days ?? 99999) - (b._days ?? 99999));
 
   const expired = state.inspection.filter(r => { const d = daysDiff(r.next_deadline); return d !== null && d < 0; }).length;
   const in30 = state.inspection.filter(r => { const d = daysDiff(r.next_deadline); return d !== null && d >= 0 && d <= 30; }).length;
   const in90 = state.inspection.filter(r => { const d = daysDiff(r.next_deadline); return d !== null && d >= 0 && d <= 90; }).length;
 
-  document.getElementById('insp-stats').innerHTML = `
-    <div class="card stat-card"><div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><div class="stat-label">Tổng</div><div class="stat-value">${state.inspection.length}</div></div></div>
-    <div class="card stat-card"><div class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div><div class="stat-label">Đã hết hạn</div><div class="stat-value">${expired}</div></div></div>
-    <div class="card stat-card"><div class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div><div><div class="stat-label">Cận hạn 30d</div><div class="stat-value">${in30}</div></div></div>
-    <div class="card stat-card"><div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="stat-label">Cận hạn 90d</div><div class="stat-value">${in90}</div></div></div>
-  `;
+  const statsEl = document.getElementById('insp-stats');
+  if (statsEl) {
+    statsEl.innerHTML = `
+      <div class="card stat-card"><div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><div class="stat-label">Tổng thiết bị</div><div class="stat-value">${state.inspection.length}</div><div class="stat-sub">Đã thiết lập hạn KĐ</div></div></div>
+      <div class="card stat-card"><div class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div><div class="stat-label">Đã quá hạn</div><div class="stat-value" style="color:var(--danger)">${expired}</div><div class="stat-sub">Cần kiểm định gấp</div></div></div>
+      <div class="card stat-card"><div class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div><div><div class="stat-label">Cận hạn ≤ 30 ngày</div><div class="stat-value" style="color:var(--warning)">${in30}</div><div class="stat-sub">Ưu tiên sắp xếp lịch</div></div></div>
+      <div class="card stat-card"><div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="stat-label">Cận hạn ≤ 90 ngày</div><div class="stat-value">${in90}</div><div class="stat-sub">Lập kế hoạch trước</div></div></div>
+    `;
+  }
+
+  const countEl = document.getElementById('insp-count');
+  if (countEl) countEl.textContent = `Hiển thị ${filtered.length} / ${state.inspection.length} thiết bị`;
+
+  const tbody = document.getElementById('insp-tbody');
+  if (!tbody) return;
 
   if (filtered.length === 0) {
-    document.getElementById('insp-tbody').innerHTML = `<tr><td colspan="9"><div class="empty-state">Không có thiết bị nào</div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state">Không tìm thấy thiết bị kiểm định phù hợp</div></td></tr>`;
     return;
   }
 
-  document.getElementById('insp-tbody').innerHTML = filtered.map(r => {
+  tbody.innerHTML = filtered.map(r => {
     const cls = r._days !== null && r._days < 0 ? 'alert-row danger' : (r._days !== null && r._days <= 30 ? 'alert-row warn' : '');
+    const deptInfo = r.department ? escHtml(r.department) : '<span style="color:var(--text-muted)">-</span>';
+    const detailInfo = r.department_detail ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">${escHtml(r.department_detail)}</div>` : '';
+    
     return `<tr class="${cls}">
-      <td><strong>${escHtml(r.name)}</strong></td>
-      <td>${statusBadge(r.status)}</td>
-      <td>${escHtml(r.department)}</td>
-      <td>${escHtml(r.model)}</td>
-      <td>${escHtml(r.serial_number)}</td>
-      <td>${fmtDate(r.inspection_date)}</td>
-      <td>${fmtDate(r.next_deadline)}</td>
+      <td><strong style="color:var(--text)">${escHtml(r.name)}</strong></td>
+      <td>${statusBadge(r.status || 'Bình Thường')}</td>
+      <td>${deptInfo}${detailInfo}</td>
+      <td>${escHtml(r.model || '-')}</td>
+      <td><code>${escHtml(r.serial_number || '-')}</code></td>
+      <td>${fmtDate(r.inspection_date) || '-'}</td>
+      <td><strong>${fmtDate(r.next_deadline) || '-'}</strong></td>
       <td>${daysBadge(r._days)}</td>
       <td><div class="actions">
-        <button class="btn sm" onclick="editInsp(${r.id})" title="Sửa">✏️</button>
+        <button class="btn sm" onclick="editInsp(${r.id})" title="Chỉnh sửa">✏️</button>
         <button class="btn sm danger" onclick="deleteInsp(${r.id})" title="Xóa">🗑️</button>
       </div></td>
     </tr>`;
@@ -2447,52 +2569,85 @@ function renderInspection() {
 
 function openInspModal(r) {
   state.editingInspId = r ? r.id : null;
-  document.getElementById('insp-modal-title').textContent = r ? 'Sửa kiểm định' : 'Thêm kiểm định';
-  document.getElementById('insp-name').value = r ? r.name || '' : '';
-  document.getElementById('insp-status').value = r ? r.status || '' : '';
-  document.getElementById('insp-dept').value = r ? r.department || '' : '';
-  document.getElementById('insp-deptdetail').value = r ? r.department_detail || '' : '';
-  document.getElementById('insp-model').value = r ? r.model || '' : '';
-  document.getElementById('insp-serial').value = r ? r.serial_number || '' : '';
+  document.getElementById('insp-modal-title').textContent = r ? 'Chỉnh sửa kiểm định thiết bị' : 'Thêm mới kiểm định thiết bị';
+  document.getElementById('insp-name').value = r ? (r.name || '') : '';
+  document.getElementById('insp-status').value = r ? (r.status || 'Bình Thường') : 'Bình Thường';
+  document.getElementById('insp-dept').value = r ? (r.department || '') : '';
+  document.getElementById('insp-deptdetail').value = r ? (r.department_detail || '') : '';
+  document.getElementById('insp-model').value = r ? (r.model || '') : '';
+  document.getElementById('insp-serial').value = r ? (r.serial_number || '') : '';
   document.getElementById('insp-date').value = r ? toInputDate(r.inspection_date) : '';
   document.getElementById('insp-deadline').value = r ? toInputDate(r.next_deadline) : '';
+
+  const depts = [...new Set(state.inspection.map(x => x.department).concat(state.assets.map(x => x.department)).filter(Boolean))].sort();
+  const dl = document.getElementById('insp-dept-list');
+  if (dl) dl.innerHTML = depts.map(d => `<option value="${escHtml(d)}">`).join('');
+
+  const saveBtn = document.getElementById('insp-save-btn');
+  if (saveBtn) {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg><span>Lưu</span>';
+  }
+
   document.getElementById('insp-modal').classList.add('show');
+  setTimeout(() => document.getElementById('insp-name')?.focus(), 100);
 }
+
 function editInsp(id) {
   const r = state.inspection.find(x => x.id === id);
   if (r) openInspModal(r);
 }
-function closeInspModal() { document.getElementById('insp-modal').classList.remove('show'); }
+
+function closeInspModal() {
+  document.getElementById('insp-modal').classList.remove('show');
+  state.editingInspId = null;
+}
 
 async function saveInsp() {
+  const name = document.getElementById('insp-name').value.trim();
+  if (!name) { toast('Vui lòng nhập tên thiết bị', 'error'); return; }
+
+  const deadline = document.getElementById('insp-deadline').value;
+  if (!deadline) { toast('Vui lòng chọn hạn kiểm định tiếp theo', 'error'); return; }
+
   const payload = {
-    name: document.getElementById('insp-name').value.trim(),
-    status: document.getElementById('insp-status').value.trim(),
+    name,
+    status: document.getElementById('insp-status').value.trim() || 'Bình Thường',
     department: document.getElementById('insp-dept').value.trim(),
     department_detail: document.getElementById('insp-deptdetail').value.trim(),
     model: document.getElementById('insp-model').value.trim(),
     serial_number: document.getElementById('insp-serial').value.trim(),
     inspection_date: document.getElementById('insp-date').value,
-    next_deadline: document.getElementById('insp-deadline').value
+    next_deadline: deadline
   };
-  if (!payload.name) { toast('Thiếu tên thiết bị', 'error'); return; }
+
+  const btn = document.getElementById('insp-save-btn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span>Đang lưu...</span>'; }
+
   try {
     const url = state.editingInspId ? '/inspection/' + state.editingInspId : '/inspection';
     const method = state.editingInspId ? 'PUT' : 'POST';
     await apiFetch(url, { method, body: JSON.stringify(payload) });
-    toast('Đã lưu');
+    toast(state.editingInspId ? 'Đã cập nhật kiểm định thành công' : 'Đã thêm mới kiểm định thành công');
     closeInspModal();
     await boot(true);
-  } catch(e) { toast('Lỗi: ' + e.message, 'error'); }
+  } catch(e) {
+    toast('Lỗi lưu kiểm định: ' + (e.message || 'Không thể lưu'), 'error');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg><span>Lưu</span>';
+    }
+  }
 }
 
 async function deleteInsp(id) {
-  if (!confirm('Xóa kiểm định này?')) return;
+  if (!confirm('Bạn có chắc muốn xóa bản ghi kiểm định này?')) return;
   try {
     await apiFetch('/inspection/' + id, { method: 'DELETE' });
-    toast('Đã xóa');
+    toast('Đã xóa kiểm định');
     await boot(true);
-  } catch(e) { toast('Lỗi: ' + e.message, 'error'); }
+  } catch(e) { toast('Lỗi xóa: ' + (e.message || 'Không thể xóa'), 'error'); }
 }
 
 // ============ ATBX ============
@@ -3679,9 +3834,9 @@ function exportMaintenance() {
 }
 function exportInspection() {
   exportExcel(state.inspection, [
-    {key:'name',label:'Tên TB'},{key:'status',label:'Tình Trạng'},{key:'department',label:'Khoa'},
-    {key:'model',label:'Model'},{key:'serial_number',label:'Serial'},
-    {key:'inspection_date',label:'Ngày KĐ'},{key:'next_deadline',label:'Hạn Tiếp'}
+    {key:'name',label:'Tên Thiết Bị'},{key:'status',label:'Tình Trạng'},{key:'department',label:'Khoa/Phòng'},
+    {key:'department_detail',label:'Chi Tiết Khoa'},{key:'model',label:'Model'},{key:'serial_number',label:'Serial'},
+    {key:'inspection_date',label:'Ngày KĐ'},{key:'next_deadline',label:'Hạn Kế Tiếp'}
   ], 'kiem-dinh.xlsx');
 }
 function exportAtbx() {
@@ -4095,6 +4250,7 @@ const IMPORT_SCHEMAS = {
       { key: 'name', label: 'Tên TB', required: true, aliases: ['tên tb', 'tên thiết bị', 'tên', 'name'] },
       { key: 'status', label: 'Tình Trạng', aliases: ['tình trạng', 'trạng thái', 'status'] },
       { key: 'department', label: 'Khoa', aliases: ['khoa', 'khoa/phòng', 'khoa phòng', 'department'] },
+      { key: 'department_detail', label: 'Chi Tiết Khoa', aliases: ['chi tiết khoa', 'phòng chi tiết', 'vị trí', 'chi tiết'] },
       { key: 'model', label: 'Model', aliases: ['model'] },
       { key: 'serial_number', label: 'Serial', aliases: ['serial', 'serial number', 'sn'] },
       { key: 'inspection_date', label: 'Ngày KĐ', isDate: true, aliases: ['ngày kđ', 'ngày kiểm định', 'inspection date'] },
@@ -4196,6 +4352,18 @@ const IMPORT_SCHEMAS = {
       { key: 'status', label: 'Trạng Thái', aliases: ['trạng thái', 'status'] }
     ]
   },
+  estimates: {
+    title: 'Dự trù thiết bị',
+    api: '/estimates/batch',
+    columns: [
+      { key: 'department', label: 'Khoa/Phòng', aliases: ['khoa/phòng', 'khoa', 'phòng', 'bộ phận', 'đơn vị', 'department'] },
+      { key: 'device_name', label: 'Tên Thiết Bị', required: true, aliases: ['tên thiết bị', 'tên tb', 'thiết bị', 'tên', 'tên máy', 'dụng cụ', 'device name', 'device_name'] },
+      { key: 'quantity', label: 'Số Lượng Cần', type: 'number', aliases: ['số lượng cần', 'số lượng', 'sl cần', 'sl', 'quantity', 'qty'] },
+      { key: 'reason', label: 'Lý Do', aliases: ['lý do', 'lý do cần', 'lý do đề nghị', 'mục đích', 'reason'] },
+      { key: 'priority', label: 'Mức Độ Cần Thiết', aliases: ['mức độ cần thiết', 'mức độ', 'ưu tiên', 'độ ưu tiên', 'priority'] },
+      { key: 'request_date', label: 'Ngày Đề Nghị', isDate: true, aliases: ['ngày đề nghị', 'ngày', 'ngày yêu cầu', 'ngày lập', 'request date', 'request_date'] }
+    ]
+  },
   handover: {
     title: 'Bàn giao',
     api: '/handover/batch',
@@ -4273,6 +4441,13 @@ function downloadImportTemplate() {
 
   const headers = schema.columns.map(col => col.label);
   const sampleRow = schema.columns.map(col => {
+    if (col.key === 'priority') return 'Ưu tiên';
+    if (col.key === 'quantity') return 2;
+    if (col.key === 'department') return 'Khoa Cấp Cứu';
+    if (col.key === 'device_name') return 'Máy đo điện tim 6 cần';
+    if (col.key === 'order_name') return 'Máy monitor theo dõi bệnh nhân';
+    if (col.key === 'reason') return 'Mua mới phục vụ nhu cầu khoa';
+    if (col.key === 'status') return 'Đang xử lý';
     if (col.type === 'number') return 10;
     if (col.isDate || col.key.includes('date') || col.key.includes('deadline')) return '2026-04-20';
     return `Mẫu ${col.label}`;

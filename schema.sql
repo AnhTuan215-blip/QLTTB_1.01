@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS inspection (
   name TEXT NOT NULL,
   status TEXT DEFAULT 'Bình Thường',
   department TEXT,
+  department_detail TEXT,
   model TEXT,
   serial_number TEXT,
   inspection_date TEXT,

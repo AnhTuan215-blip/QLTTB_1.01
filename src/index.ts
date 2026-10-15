@@ -18,6 +18,7 @@ import handover from './routes/handover';
 import n2 from './routes/n2';
 import toolsets from './routes/toolsets';
 import requests from './routes/requests';
+import estimates from './routes/estimates';
 
 const app = new Hono<Env>();
 
@@ -38,6 +39,7 @@ app.route('/api/dashboard', dashboard);
 app.route('/api/history', history);
 app.route('/api/bootstrap', bootstrap);
 app.route('/api/orders', orders);
+app.route('/api/estimates', estimates);
 app.route('/api/handover', handover);
 app.route('/api/n2', n2);
 app.route('/api/toolsets', toolsets);
